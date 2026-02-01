@@ -52,15 +52,15 @@ def clean_health_data(base_dir):
         for file in files:
             df = pd.read_csv(file, index_col=False, skiprows=1, low_memory=False)
 
-            # --- SCHRITT 1: SPALTEN REINIGEN (Präfixe entfernen) ---
-            # Macht aus 'com.samsung.health.heart_rate.bpm' einfach 'bpm'
+            # --- STEP 1: CLEAN COLUMNS (remove prefixes) ---
+            # Turns 'com.samsung.health.heart_rate.bpm' into simply 'bpm'
             df.columns = [col.split('.')[-1] for col in df.columns]
 
-            # --- SCHRITT 2: AUSSCHLUSS-LISTE ANWENDEN ---
-            # Jetzt können wir einfache Namen in drop_cols verwenden
+            # --- STEP 2: APPLY EXCLUSION LIST ---
+            # Now we can use simple names in drop_cols
             df.drop(columns=settings["drop_cols"], inplace=True, errors='ignore')
 
-            # 3. create_time an die erste Stelle setzen
+            # 3. Move create_time to the first position
             cols = list(df.columns)
             if 'create_time' in cols:
                 cols.insert(0, cols.pop(cols.index('create_time')))
@@ -72,7 +72,7 @@ def clean_health_data(base_dir):
             final_df = pd.concat(all_dfs, ignore_index=True)
             target_file = output_path / settings["output_name"]
             final_df.to_csv(target_file, index=False, encoding='utf-8')
-            print(f"[OK] {file_type} wurde bereinigt und vereinheitlicht.")
+            print(f"[OK] {file_type} cleaned and unified.")
 
 
 if __name__ == "__main__":
