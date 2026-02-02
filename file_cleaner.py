@@ -30,8 +30,21 @@ CLEANING_CONFIG = {
         "pattern": "com.samsung.shealth.tracker.heart_rate.*.csv",
         "output_name": "heart_rate.csv",
         "drop_cols": ['create_sh_ver', 'modify_sh_ver', 'source', 'tag_id', 'datauuid', 'deviceuuid', 'pkg_name',
-                      'update_time', 'time_offset', 'binning_data', 'modify_sh_ver', 'heart_beat_count', 'custom',
+                      'update_time', 'time_offset', 'binning_data', 'heart_beat_count', 'custom',
                       'start_time', 'client_data_ver', 'client_data_id', 'comment', 'end_time']
+    },
+    "pedometer_day_summary": {
+        "pattern": "com.samsung.shealth.tracker.pedometer_day_summary.*.csv",
+        "output_name": "pedometer_day_summary.csv",
+        "drop_cols": ['create_sh_ver', 'binning_data', 'modify_sh_ver', 'update_time', 'source_package_name', 'tag_id',
+                      'source_info', 'deviceuuid', 'datauuid', 'pkg_name', 'time_offset', 'achievement', 'day_time']
+    },
+    "weight": {
+        "pattern": "com.samsung.health.weight.*.csv",
+        "output_name": "weight.csv",
+        "drop_cols": ['create_sh_ver', 'start_time', 'binning_data', 'custom', 'modify_sh_ver', 'update_time',
+                      'client_data_id', 'client_data_ver', 'time_offset', 'deviceuuid', 'comment', 'pkg_name',
+                      'datauuid']
     }
 }
 
