@@ -82,7 +82,7 @@ def clean_health_data(base_dir):
             all_dfs.append(df)
 
         if all_dfs:
-            final_df = pd.concat(all_dfs, ignore_index=True)
+            final_df: pd.DataFrame = pd.concat(all_dfs, ignore_index=True)
             target_file = output_path / settings["output_name"]
             final_df.to_csv(target_file, index=False, encoding='utf-8')
             print(f"[OK] {file_type} cleaned and unified.")
