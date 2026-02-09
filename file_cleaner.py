@@ -46,6 +46,11 @@ CLEANING_CONFIG = {
         "pattern": "com.samsung.health.advanced_glycation_endproduct.*.csv",
         "output_name": "advanced_glycation_endproduct.csv",
         "drop_cols": ['start_time', 'end_time','level_boundary', 'version']
+    },
+    "antioxidant": {
+        "pattern": "com.samsung.health.antioxidant.*.csv",
+        "output_name": "antioxidant.csv",
+        "drop_cols": ['start_time', 'end_time']
     }
 }
 
