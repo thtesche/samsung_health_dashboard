@@ -177,6 +177,19 @@ def clean_health_data(base_dir):
                 symptom_ids = df['symptoms'].apply(extract_symptom_id)
                 df['symptoms'] = symptom_ids.map(symptom_mapping)
 
+            # --- Special transformation for ECG classification ---
+            if file_type == "ecg" and 'classification' in df.columns:
+                classification_mapping = {
+                    1: 'Sinus rhythm',
+                    2: 'Atrial fibrillation',
+                    3: 'Inconclusive',
+                    4: 'Poor recording'
+                }
+                df['classification'] = pd.to_numeric(df['classification'], errors='coerce')
+                df.dropna(subset=['classification'], inplace=True)
+                df['classification'] = df['classification'].astype(int).map(classification_mapping)
+                df.dropna(subset=['classification'], inplace=True)
+
             # --- STEP 4: REORDER COLUMNS ---
             # Order by create_time, start_time, end_time, then the rest
             all_cols = list(df.columns)
