@@ -202,6 +202,18 @@ def clean_health_data(base_dir):
                 }
                 df['meal_type'] = pd.to_numeric(df['meal_type'], errors='coerce')
                 df['meal_type'] = df['meal_type'].map(meal_type_mapping)
+                df.dropna(subset=['meal_type'], inplace=True)
+
+            # --- Special transformation for Respiratory Rate is_outlier ---
+            if file_type == "respiratory_rate" and 'is_outlier' in df.columns:
+                outlier_mapping = {
+                    0: 'valid',
+                    1: 'outlier'
+                }
+                df['is_outlier'] = pd.to_numeric(df['is_outlier'], errors='coerce')
+                df.dropna(subset=['is_outlier'], inplace=True)
+                df['is_outlier'] = df['is_outlier'].astype(int).map(outlier_mapping)
+                df.dropna(subset=['is_outlier'], inplace=True)
 
             # --- STEP 4: REORDER COLUMNS ---
             # Order by create_time, start_time, end_time, then the rest
