@@ -78,6 +78,22 @@ CLEANING_CONFIG = {
         "pattern": "com.samsung.health.nutrition.*.csv",
         "output_name": "nutrition.csv",
         "drop_cols": ['start_time', 'end_time']
+    },
+    "respiratory_rate": {
+        "pattern": "com.samsung.health.respiratory_rate.*.csv",
+        "output_name": "respiratory_rate.csv",
+        "drop_cols": ['start_time', 'end_time', 'pplib_version']
+    },
+    "skin_temperature": {
+        "pattern": "com.samsung.health.skin_temperature.*.csv",
+        "output_name": "skin_temperature.csv",
+        "drop_cols": ['start_time', 'end_time']
+    },
+    "sleep_apnea": {
+        "pattern": "com.samsung.health.sleep_apnea.*.csv",
+        "output_name": "sleep_apnea.csv",
+        "drop_cols": ['start_time', 'end_time', 'shm_start_time', 'shm_data_id', 'shm_device_id', 'start_time_offset',
+                      'shm_create_time', 'shm_update_time', 'shm_device_uuid']
     }
 }
 
