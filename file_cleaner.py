@@ -45,12 +45,19 @@ CLEANING_CONFIG = {
     "advanced_glycation_endproduct": {
         "pattern": "com.samsung.health.advanced_glycation_endproduct.*.csv",
         "output_name": "advanced_glycation_endproduct.csv",
-        "drop_cols": ['start_time', 'end_time','level_boundary', 'version']
+        "drop_cols": ['start_time', 'end_time', 'level_boundary', 'version']
     },
     "antioxidant": {
         "pattern": "com.samsung.health.antioxidant.*.csv",
         "output_name": "antioxidant.csv",
         "drop_cols": ['start_time', 'end_time']
+    },
+    "ecg": {
+        "pattern": "com.samsung.health.ecg.*.csv",
+        "output_name": "ecg.csv",
+        "drop_cols": ['start_time', 'end_time', 'ecg_version', 'sample_frequency', 'shm_data_id', 'shm_device_uuid',
+                      'shm_update_time', 'chart_data', 'shm_create_time', 'ecg_version', 'data_mime', 'data',
+                      'sample_count']
     }
 }
 
