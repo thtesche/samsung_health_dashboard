@@ -73,6 +73,11 @@ CLEANING_CONFIG = {
         "pattern": "com.samsung.health.food_intake.*.csv",
         "output_name": "food_intake.csv",
         "drop_cols": ['start_time', 'end_time', 'food_info_id']
+    },
+    "nutrition": {
+        "pattern": "com.samsung.health.nutrition.*.csv",
+        "output_name": "nutrition.csv",
+        "drop_cols": ['start_time', 'end_time']
     }
 }
 
