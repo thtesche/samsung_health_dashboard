@@ -1,6 +1,6 @@
-# Samsung Health Dashboard
+# Samsung Health Data Cleaner
 
-This project provides a dashboard for analyzing Samsung Health data using Streamlit.
+This project provides a tool for cleaning Samsung Health data.
 
 ## Prerequisites
 
@@ -12,7 +12,7 @@ This project provides a dashboard for analyzing Samsung Health data using Stream
 
     Open your terminal and change to the project directory:
     ```bash
-    cd your_path_to_project/samsung_health_dashboard
+    cd your_path_to_project/samsung_health_data_cleaner
     ```
 
 2.  **Create a virtual environment:**
@@ -48,7 +48,7 @@ This project provides a dashboard for analyzing Samsung Health data using Stream
 To start the dashboard, run the following command:
 
 ```bash
-streamlit run health_dashboard.py
+streamlit run main.py
 ```
 
 The application should open automatically in your default web browser.

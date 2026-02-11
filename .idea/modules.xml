@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/samsung_health_dashboard.iml" filepath="$PROJECT_DIR$/samsung_health_dashboard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/samsung_health_data_cleaner.iml" filepath="$PROJECT_DIR$/samsung_health_data_cleaner.iml" />
     </modules>
   </component>
 </project>
