@@ -132,6 +132,11 @@ CLEANING_CONFIG = {
         "drop_cols": ['start_time', 'end_time', 'exercise_id', 'heart_rate', 'program', 'live_data_internal',
                       'routine_datauuid', 'pace_info_id', 'sensing_status', 'location_data_internal', 'custom_id',
                       'location_data', 'live_data', 'schedule', 'program_uuid', 'coach_id', 'source_data']
+    },
+    "mean_arterial_pressure": {
+        "pattern": "com.samsung.shealth.mean_arterial_pressure.*.csv",
+        "output_name": "mean_arterial_pressure.csv",
+        "drop_cols": ['start_time', 'end_time']
     }
 }
 
@@ -249,6 +254,16 @@ def clean_health_data(base_dir):
                 # Map known types, fill others with a generic label
                 df['exercise_type'] = df['exercise_type'].map(exercise_mapping).fillna('Other/Unknown')
                 df.dropna(subset=['exercise_type'], inplace=True)
+
+            # --- Special transformation for Mean Arterial Pressure type ---
+            if file_type == "mean_arterial_pressure" and 'type' in df.columns:
+                map_type_mapping = {
+                    1: 'Calibration/Initialization',
+                    2: 'Reference measurement',
+                    3: 'Measurement'
+                }
+                df['type'] = pd.to_numeric(df['type'], errors='coerce')
+                df['type'] = df['type'].map(map_type_mapping)
 
             # --- STEP 4: REORDER COLUMNS ---
             # Order by create_time, start_time, end_time, then the rest
