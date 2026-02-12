@@ -255,16 +255,6 @@ def clean_health_data(base_dir):
                 df['exercise_type'] = df['exercise_type'].map(exercise_mapping).fillna('Other/Unknown')
                 df.dropna(subset=['exercise_type'], inplace=True)
 
-            # --- Special transformation for Mean Arterial Pressure type ---
-            if file_type == "mean_arterial_pressure" and 'type' in df.columns:
-                map_type_mapping = {
-                    1: 'Calibration/Initialization',
-                    2: 'Reference measurement',
-                    3: 'Measurement'
-                }
-                df['type'] = pd.to_numeric(df['type'], errors='coerce')
-                df['type'] = df['type'].map(map_type_mapping)
-
             # --- STEP 4: REORDER COLUMNS ---
             # Order by create_time, start_time, end_time, then the rest
             all_cols = list(df.columns)
@@ -281,6 +271,34 @@ def clean_health_data(base_dir):
 
         if all_dfs:
             final_df: pd.DataFrame = pd.concat(all_dfs, ignore_index=True)
+
+            # --- Post-processing for Mean Arterial Pressure (requires global sorting) ---
+            if file_type == "mean_arterial_pressure":
+                if 'type' in final_df.columns:
+                    final_df['type'] = pd.to_numeric(final_df['type'], errors='coerce')
+
+                if 'measurement' in final_df.columns and 'create_time' in final_df.columns:
+                    col_name = 'measurement'
+                    final_df[col_name] = pd.to_numeric(final_df[col_name], errors='coerce')
+
+                    # Sort globally by create_time to ensure correct order across all files
+                    final_df.sort_values(by='create_time', inplace=True)
+
+                    # Propagate the last Type 2 value to subsequent rows
+                    refs = final_df[col_name].where(final_df['type'] == 2).ffill()
+
+                    # Calculate Type 3: Reference + Diff
+                    mask_type_3 = final_df['type'] == 3
+                    final_df.loc[mask_type_3, col_name] = refs[mask_type_3] + final_df.loc[mask_type_3, col_name]
+
+                if 'type' in final_df.columns:
+                    map_type_mapping = {
+                        1: 'Calibration/Initialization',
+                        2: 'Reference measurement',
+                        3: 'Measurement'
+                    }
+                    final_df['type'] = final_df['type'].map(map_type_mapping)
+
             target_file = output_path / settings["output_name"]
             final_df.to_csv(target_file, index=False, encoding='utf-8')
             print(f"[OK] {file_type} cleaned and unified.")
