@@ -16,6 +16,11 @@ CLEANING_CONFIG = {
         "output_name": "vitality_score.csv",
         "drop_cols": ['shr_calculation_index', 'shrv_calculation_index']
     },
+    "vitality_nap": {
+        "pattern": "com.samsung.shealth.vitality.nap_data.*.csv",
+        "output_name": "vitality_nap.csv",
+        "drop_cols": ['start_time', 'end_time', 'vitality_day_time']
+    },
     "sleep": {
         "pattern": "com.samsung.shealth.sleep.*.csv",
         "output_name": "sleep.csv",
